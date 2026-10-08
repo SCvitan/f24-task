@@ -1,6 +1,8 @@
 package com.example.backend.service;
 
 import com.example.backend.entity.FileEntity;
+import com.example.backend.exception.InvalidRequestException;
+import com.example.backend.exception.ResourceNotFoundException;
 import com.example.backend.repository.FileRepository;
 import com.example.backend.repository.FolderRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +20,14 @@ public class SearchService {
 
     public List<FileEntity> search(String query, Long parentFolderId){
 
+        if (query == null || query.isBlank()){
+            throw new InvalidRequestException("Search cannot be empty query!");
+        }
+
+        query = query.trim();
+
         if (parentFolderId != null) {
-            folderRepository.findById(parentFolderId).orElseThrow(() -> new RuntimeException("Folder nor found!"));
+            folderRepository.findById(parentFolderId).orElseThrow(() -> new ResourceNotFoundException("Folder was not found!"));
 
             return fileRepository.searchByNameInFolder(
                     query,

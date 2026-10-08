@@ -2,6 +2,8 @@ package com.example.backend.service;
 
 import com.example.backend.entity.FileEntity;
 import com.example.backend.entity.Folder;
+import com.example.backend.exception.DuplicateResourceException;
+import com.example.backend.exception.ResourceNotFoundException;
 import com.example.backend.repository.FileRepository;
 import com.example.backend.repository.FolderRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,10 +19,10 @@ public class FileService {
     private final FolderRepository folderRepository;
 
     public FileEntity createFile(String name, Long folderId){
-        Folder folder = folderRepository.findById(folderId).orElseThrow(() -> new RuntimeException("Folder not found!"));
+        Folder folder = folderRepository.findById(folderId).orElseThrow(() -> new ResourceNotFoundException("Folder was not found!"));
 
         if (fileRepository.existsByFolderIdAndName(folderId, name)){
-            throw new RuntimeException("File already exists!");
+            throw new DuplicateResourceException("File already exists!");
         }
 
         FileEntity file = new FileEntity(name, folder);
@@ -33,7 +35,7 @@ public class FileService {
     }
 
     public void deleteFile(Long fileId){
-        FileEntity file = fileRepository.findById(fileId).orElseThrow(() -> new RuntimeException("File was now found!"));
+        FileEntity file = fileRepository.findById(fileId).orElseThrow(() -> new ResourceNotFoundException("File was not found!"));
         fileRepository.delete(file);
     }
 

@@ -4,6 +4,8 @@ import com.example.backend.dto.FileResponse;
 import com.example.backend.dto.FolderContentsResponse;
 import com.example.backend.dto.FolderResponse;
 import com.example.backend.entity.Folder;
+import com.example.backend.exception.DuplicateResourceException;
+import com.example.backend.exception.ResourceNotFoundException;
 import com.example.backend.repository.FileRepository;
 import com.example.backend.repository.FolderRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +36,7 @@ public class FolderService {
         }
 
         if (alreadyExists){
-            throw new RuntimeException("Folder already exists.");
+            throw new DuplicateResourceException("Folder already exists!");
         }
 
         return folderRepository.save(new Folder(name, parent));
@@ -91,7 +93,7 @@ public class FolderService {
     }
 
     private Folder findFolder (Long folderId){
-        return folderRepository.findById(folderId).orElseThrow(() -> new RuntimeException("Folder now found!"));
+        return folderRepository.findById(folderId).orElseThrow(() -> new ResourceNotFoundException("Folder was not found!"));
     }
 
 }
