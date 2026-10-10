@@ -1,0 +1,35 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 24px;
+}
+
+main {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+section {
+  margin-bottom: 24px;
+}
+
+input {
+  padding: 6px;
+}
+
+button {
+  margin: 2px;
+  padding: 5px 8px;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+li {
+  margin: 6px 0;
+}
+
+hr {
+  margin: 24px 0;
+}

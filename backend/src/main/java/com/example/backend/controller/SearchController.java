@@ -25,4 +25,12 @@ public class SearchController {
                 .toList();
     }
 
+    @GetMapping("/exact")
+    public List<FileResponse> searchExactFile(@RequestParam String query, @RequestParam(required = false) Long parentFolderId){
+        return searchService.searchByExactName(query, parentFolderId)
+                .stream()
+                .map(FileResponse::from)
+                .toList();
+    }
+
 }

@@ -29,4 +29,8 @@ public interface FileRepository extends JpaRepository<FileEntity, Long> {
             """)
     List<FileEntity> searchByNameInFolder(@Param("query") String query, @Param("folderId") Long folderId, Pageable pageable);
 
+    List<FileEntity> findByName(String name);
+
+    List<FileEntity> findByFolderIdAndName(Long folderId, String name);
+
 }

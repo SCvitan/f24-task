@@ -20,15 +20,13 @@ public class SearchService {
 
     public List<FileEntity> search(String query, Long parentFolderId){
 
-        if (query == null || query.isBlank()){
-            throw new InvalidRequestException("Search cannot be empty query!");
-        }
+        checkForEmptyQuery(query);
 
         query = query.trim();
 
-        if (parentFolderId != null) {
-            folderRepository.findById(parentFolderId).orElseThrow(() -> new ResourceNotFoundException("Folder was not found!"));
+        checkIfFolderExists(parentFolderId);
 
+        if (parentFolderId != null) {
             return fileRepository.searchByNameInFolder(
                     query,
                     parentFolderId,
@@ -40,5 +38,34 @@ public class SearchService {
                 query,
                 PageRequest.of(0, 10)
         );
+    }
+
+    public List<FileEntity> searchByExactName(String query, Long parentFolderId){
+
+        checkForEmptyQuery(query);
+
+        query = query.trim();
+
+        checkIfFolderExists(parentFolderId);
+
+        if (parentFolderId != null) {
+            return fileRepository.findByFolderIdAndName(
+                    parentFolderId,
+                    query
+            );
+        }
+        return fileRepository.findByName(query);
+    }
+
+    private void checkForEmptyQuery(String query){
+        if (query == null || query.isBlank()){
+            throw new InvalidRequestException("Search cannot be empty query!");
+        }
+    }
+
+    private void checkIfFolderExists(Long folderId){
+        if (folderId != null){
+            folderRepository.findById(folderId).orElseThrow(() -> new ResourceNotFoundException("Folder was not found!"));
+        }
     }
 }
