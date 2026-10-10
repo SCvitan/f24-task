@@ -14,8 +14,14 @@ async function request(url, options = {}) {
     if (response.status === 204) {
       return null
     }
+
+    const responseText = await response.text()
+
+    if (!responseText){
+      return null
+    }
   
-    return response.json()
+    return JSON.parse(responseText)
   }
   
   export function getRootContents() {

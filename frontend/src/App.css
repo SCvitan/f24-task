@@ -33,3 +33,44 @@ li {
 hr {
   margin: 24px 0;
 }
+
+.browser-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.location {
+  margin: 0;
+}
+
+.toolbar-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.file-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  max-width: 600px;
+  padding: 8px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.item-name {
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+.delete-button {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.file-row .item-name {
+  min-width: 0;
+}
