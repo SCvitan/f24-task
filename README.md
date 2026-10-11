@@ -15,6 +15,8 @@ Docker, Docker Compose
 
 HOW TO RUN THE APP:
 
+Navigate to f24 directory (where docker-compose file is) and run:
 
+  docker compose up --build 
 
 EDIT: Normally we would want the sensitive data (like credentials and passwords) not to include in commits but instead use the env variables. 
