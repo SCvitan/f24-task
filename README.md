@@ -29,7 +29,7 @@ docker run --name f24-db-container \
   -d postgres:17
 
 OR navigate to a f24-task directory and use docker compose:
-"docker compose up --build" (or "docker-compose up --build" if on windows)
+"docker compose up --build"
 
 2. Navigate to backend directory (where pom.xml file is) and run:
 
